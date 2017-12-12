@@ -132,6 +132,8 @@ for i in range(len(date_list) - 1):
         for t in day_results:
             f.write(t.date.strftime("%Y-%m-%d %H:%M:%S") + "|" + t.txt + "\n")
 
+    search_results[date_list[i]] = day_results
+    
     print("Took ", end_time - start_time, " seconds")
     print("Number of results for this day: ", len(search_results))
 
