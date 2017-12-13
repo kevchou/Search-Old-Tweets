@@ -30,8 +30,14 @@ def get_json_response(query, start, end, refresh_cursor, cookie_jar):
     ]
     opener.addheaders = headers
 
-    response = opener.open(url) 
-    jsonResponse = response.read()
+    try:
+        response = opener.open(url)
+        jsonResponse = response.read()
+    except:
+        print("Twitter weird response. Try to see on browser: https://twitter.com/search?q=%s&src=typd" % urllib.parse.quote(urlGetData))
+        print("Unexpected error:", sys.exc_info()[0])
+        sys.exit()
+        return
 
     return json.loads(jsonResponse.decode())
 
