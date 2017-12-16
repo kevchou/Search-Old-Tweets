@@ -117,14 +117,27 @@ def search_tweets(query, start, end):
 
     return all_tweets
 
-
+################
+# Input Params
+################
 query = "#bitcoin"
 
-# Time frame
-start_date = datetime.datetime.strptime("2017-01-01", '%Y-%m-%d')
-date_list = [start_date + datetime.timedelta(days=x) for x in range(345)]
-date_list = [d.strftime("%Y-%m-%d") for d in date_list]
 
+start = '2017-10-01'
+end = '2017-12-01'
+
+
+
+# set up time
+start_dt = datetime.datetime.strptime(start, '%Y-%m-%d')
+end_dt = datetime.datetime.strptime(end, '%Y-%m-%d')
+num_days = (end_dt - start_dt).days
+
+date_range = [start_dt + datetime.timedelta(days=x) for x in range(num_days)]
+date_list = [d.strftime("%Y-%m-%d") for d in date_range]
+
+
+# Start search
 search_results = {}
 
 for i in range(len(date_list) - 1):
@@ -139,7 +152,9 @@ for i in range(len(date_list) - 1):
             f.write(t.date.strftime("%Y-%m-%d %H:%M:%S") + "|" + t.txt + "\n")
 
     search_results[date_list[i]] = day_results
-    
+
     print("Took ", end_time - start_time, " seconds")
     print("Number of results for this day: ", len(search_results))
+
+
 
